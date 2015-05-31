@@ -1,8 +1,16 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background: #333;
 }
 
-a {
-  color: #00B7FF;
+#page-wrap:after{
+	content: "Smartphone Layout";
+}
+h2 span, section h3{
+	display: none;
+}
+body{
+	font-size: xx-large;
+}
+footer,input{
+	font-size: large;
 }
