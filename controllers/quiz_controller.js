@@ -18,12 +18,10 @@ exports.load = function (req,res,next, quizId){
 exports.index = function(req,res){
 	var search=req.query.search;
 
-	if (search.length>0) {
+	if (search!== undefined) {
 
 		search=search.replace(' ','%');
 		search='%'+search+'%';
-
-		console.log(search);
 
 		models.Quiz.findAll({where: ["pregunta like ?", search]}).then(
 			function(quizes){
@@ -40,7 +38,7 @@ exports.index = function(req,res){
 
 // GET /quizes/:id
 exports.show = function(req,res){
-	models.Quiz.findAll().success(function(quiz){
+	models.Quiz.findAll().then(function(quiz){
 		res.render('quizes/show',{quiz: req.quiz});
 	})
 };
