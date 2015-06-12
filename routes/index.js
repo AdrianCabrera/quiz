@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Quiz' });
+  res.render('index', { title: 'Quiz' ,errors: []});
 });
 
 // Autolaod de comandos con :quizId
@@ -20,7 +20,7 @@ router.post('/quizes/create',				quizController.create);
 
 /* AUTHOR. */
 router.get('/author', function(req, res) {
-  res.render('author');
+  res.render('author',{errors: []});
 });
 
 module.exports = router;
