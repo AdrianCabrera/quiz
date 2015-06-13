@@ -36,6 +36,8 @@ exports.create = function(req,res){
 		// La sesión se define por la existencia de: req.session.user
 		req.session.user = {id:user.id,username:user.username};
 
+		req.session.lastTimeStamp = new Date().toString();
+		
 		res.redirect(req.session.redir.toString()); // redirección a path anterior a login
 	});
 
@@ -44,4 +46,17 @@ exports.create = function(req,res){
 exports.destroy= function(req,res){
 	delete req.session.user;
 	res.redirect(req.session.redir.toString()); // redirect a path anterior a login
-}
+};
+
+exports.autoLogout= function(req,res,next){
+	if(req.session.lastTimeStamp!==undefined){
+		if(Math.abs( new Date(req.session.lastTimeStamp).getTime() - new Date().getTime())>120000){
+			delete req.session.user;
+			delete req.session.lastTimeStamp;
+			res.redirect('/login');
+			return;
+		}
+		req.session.lastTimeStamp = new Date().toString();
+	}
+	next();
+};
